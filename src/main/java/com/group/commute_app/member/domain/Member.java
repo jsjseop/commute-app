@@ -26,8 +26,7 @@ public class Member {
 	protected Member() {
 	}
 
-	public Member(Long id, String name, boolean isManager, LocalDate employmentDate, LocalDate birthdayDate) {
-		this.id = id;
+	public Member(String name, boolean isManager, LocalDate employmentDate, LocalDate birthdayDate) {
 		this.name = name;
 		this.isManager = isManager;
 		this.employmentDate = employmentDate;
