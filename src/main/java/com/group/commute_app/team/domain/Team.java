@@ -18,8 +18,7 @@ public class Team {
 	protected Team() {
 	}
 
-	public Team(Long id, String name) {
-		this.id = id;
+	public Team(String name) {
 		this.name = name;
 	}
 }
