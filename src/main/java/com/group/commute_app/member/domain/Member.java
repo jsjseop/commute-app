@@ -45,4 +45,16 @@ public class Member {
 	public boolean isManager() {
 		return isManager;
 	}
+
+	public LocalDate getEmploymentDate() {
+		return employmentDate;
+	}
+
+	public LocalDate getBirthdayDate() {
+		return birthdayDate;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
 }

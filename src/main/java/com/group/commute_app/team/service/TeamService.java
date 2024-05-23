@@ -19,14 +19,14 @@ public class TeamService {
 		this.teamRepository = teamRepository;
 	}
 
+	public void saveTeam(TeamSaveRequest request) {
+		teamRepository.save(new Team(request.getName()));
+	}
+
 	public List<TeamResponse> getTeams() {
 		List<Team> teams = teamRepository.findAll();
 		return teams.stream()
 			.map(team -> new TeamResponse(team.getName(), team.getMembers()))
 			.collect(Collectors.toList());
-	}
-
-	public void saveTeam(TeamSaveRequest request) {
-		teamRepository.save(new Team(request.getName()));
 	}
 }
