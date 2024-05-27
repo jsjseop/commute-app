@@ -15,6 +15,7 @@ public class TeamResponse {
 		for (Member member : members) {
 			if (member.isManager()) {
 				this.manager = member.getName();
+				break;
 			}
 		}
 		this.memberCount = members.size();
