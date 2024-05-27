@@ -1,13 +1,16 @@
 package com.group.commute_app.member.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.group.commute_app.member.domain.Attendance;
 import com.group.commute_app.member.domain.Member;
 import com.group.commute_app.member.dto.request.MemberCheckInRequest;
+import com.group.commute_app.member.dto.request.MemberCheckOutRequest;
 import com.group.commute_app.member.dto.request.MemberSaveRequest;
 import com.group.commute_app.member.dto.response.MemberResponse;
 import com.group.commute_app.member.repository.AttendanceRepository;
@@ -29,6 +32,7 @@ public class MemberService {
 		this.attendanceRepository = attendanceRepository;
 	}
 
+	@Transactional
 	public void saveMember(MemberSaveRequest request) {
 		Team team = teamRepository.findByName(request.getTeamName())
 			.orElseThrow(IllegalArgumentException::new);
@@ -55,15 +59,31 @@ public class MemberService {
 			.toList();
 	}
 
+	@Transactional
 	public void checkInMember(MemberCheckInRequest request) {
 		Member member = memberRepository.findById(request.getId())
 			.orElseThrow(IllegalArgumentException::new);
 
 		// 현재 일자에 출근한 기록이 있는지 확인
-		if (attendanceRepository.existsByMemberIdAndCheckInTimeAndCheckOutTimeIsNull(member.getId(), LocalDateTime.now())) {
-			throw new IllegalArgumentException("이미 출근했습니다;;");
-		}
+		attendanceRepository.findByMemberIdAndCheckInTimeAndCheckOutTimeIsNull(member.getId(), LocalDate.now())
+			.ifPresent(attendance -> {
+				throw new IllegalArgumentException("이미 출근했습니다;;");
+			});
 
 		attendanceRepository.save(new Attendance(member, LocalDateTime.now()));
+	}
+
+	@Transactional
+	public void checkOutMember(MemberCheckOutRequest request) {
+		Member member = memberRepository.findById(request.getId())
+			.orElseThrow(IllegalArgumentException::new);
+
+		// 현재 일자에 출근한 기록이 없는 경우 예외 발생
+		Attendance attendance = attendanceRepository.findByMemberIdAndCheckInTimeAndCheckOutTimeIsNull(
+				member.getId(),
+				LocalDate.now())
+			.orElseThrow(IllegalArgumentException::new);
+
+		attendance.checkOut(LocalDateTime.now());
 	}
 }

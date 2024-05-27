@@ -28,4 +28,8 @@ public class Attendance {
 		this.member = member;
 		this.checkInTime = checkInTime;
 	}
+
+	public void checkOut(LocalDateTime checkOutTime) {
+		this.checkOutTime = checkOutTime;
+	}
 }

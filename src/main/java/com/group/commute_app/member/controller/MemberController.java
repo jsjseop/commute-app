@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.commute_app.member.dto.request.MemberCheckInRequest;
+import com.group.commute_app.member.dto.request.MemberCheckOutRequest;
 import com.group.commute_app.member.dto.request.MemberSaveRequest;
 import com.group.commute_app.member.dto.response.MemberResponse;
 import com.group.commute_app.member.service.MemberService;
@@ -34,5 +35,10 @@ public class MemberController {
 	@PostMapping("/api/member/check-in")
 	public void checkInMember(@RequestBody MemberCheckInRequest request) {
 		memberService.checkInMember(request);
+	}
+
+	@PostMapping("/api/member/check-out")
+	public void checkOutMember(@RequestBody MemberCheckOutRequest request) {
+		memberService.checkOutMember(request);
 	}
 }
