@@ -28,7 +28,7 @@ public class MemberService {
 
 		Member member = new Member(
 			request.getName(),
-			request.isManager(),
+			request.getIsManager(),
 			request.getWorkStartDate(),
 			request.getBirthday(),
 			team);

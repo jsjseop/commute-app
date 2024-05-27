@@ -6,7 +6,7 @@ public class MemberSaveRequest {
 
 	private String name;
 	private String teamName;
-	private boolean isManager;
+	private Boolean isManager;
 	private LocalDate workStartDate;
 	private LocalDate birthday;
 
@@ -18,7 +18,7 @@ public class MemberSaveRequest {
 		return teamName;
 	}
 
-	public boolean isManager() {
+	public Boolean getIsManager() {
 		return isManager;
 	}
 
