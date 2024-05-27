@@ -22,20 +22,21 @@ public class Member {
 	@Column(nullable = false)
 	private boolean isManager;
 	@Column(nullable = false)
-	private LocalDate employmentDate;
+	private LocalDate workStartDate;
 	@Column(nullable = false)
-	private LocalDate birthdayDate;
+	private LocalDate birthday;
 	@ManyToOne
 	private Team team;
 
 	protected Member() {
 	}
 
-	public Member(String name, boolean isManager, LocalDate employmentDate, LocalDate birthdayDate) {
+	public Member(String name, boolean isManager, LocalDate workStartDate, LocalDate birthday, Team team) {
 		this.name = name;
 		this.isManager = isManager;
-		this.employmentDate = employmentDate;
-		this.birthdayDate = birthdayDate;
+		this.workStartDate = workStartDate;
+		this.birthday = birthday;
+		this.team = team;
 	}
 
 	public String getName() {
@@ -46,12 +47,12 @@ public class Member {
 		return isManager;
 	}
 
-	public LocalDate getEmploymentDate() {
-		return employmentDate;
+	public LocalDate getWorkStartDate() {
+		return workStartDate;
 	}
 
-	public LocalDate getBirthdayDate() {
-		return birthdayDate;
+	public LocalDate getBirthday() {
+		return birthday;
 	}
 
 	public Team getTeam() {

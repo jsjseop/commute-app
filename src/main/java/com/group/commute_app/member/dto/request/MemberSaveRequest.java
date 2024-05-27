@@ -5,23 +5,28 @@ import java.time.LocalDate;
 public class MemberSaveRequest {
 
 	private String name;
+	private String teamName;
 	private boolean isManager;
-	private LocalDate employeeDate;
-	private LocalDate birthdayDate;
+	private LocalDate workStartDate;
+	private LocalDate birthday;
 
 	public String getName() {
 		return name;
+	}
+
+	public String getTeamName() {
+		return teamName;
 	}
 
 	public boolean isManager() {
 		return isManager;
 	}
 
-	public LocalDate getEmployeeDate() {
-		return employeeDate;
+	public LocalDate getWorkStartDate() {
+		return workStartDate;
 	}
 
-	public LocalDate getBirthdayDate() {
-		return birthdayDate;
+	public LocalDate getBirthday() {
+		return birthday;
 	}
 }

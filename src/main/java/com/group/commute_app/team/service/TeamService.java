@@ -1,9 +1,9 @@
 package com.group.commute_app.team.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.group.commute_app.team.domain.Team;
 import com.group.commute_app.team.dto.request.TeamSaveRequest;
@@ -19,14 +19,18 @@ public class TeamService {
 		this.teamRepository = teamRepository;
 	}
 
+	@Transactional
 	public void saveTeam(TeamSaveRequest request) {
-		teamRepository.save(new Team(request.getName()));
+		Team team = teamRepository.findByName(request.getName())
+			.orElseThrow(IllegalArgumentException::new);
+
+		teamRepository.save(team);
 	}
 
 	public List<TeamResponse> getTeams() {
 		List<Team> teams = teamRepository.findAll();
 		return teams.stream()
 			.map(team -> new TeamResponse(team.getName(), team.getMembers()))
-			.collect(Collectors.toList());
+			.toList();
 	}
 }

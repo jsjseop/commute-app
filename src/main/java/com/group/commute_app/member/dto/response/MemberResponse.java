@@ -21,4 +21,24 @@ public class MemberResponse {
 			this.role = "MEMBER";
 		}
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public LocalDate getWorkStartDate() {
+		return workStartDate;
+	}
 }
