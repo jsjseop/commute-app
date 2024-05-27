@@ -1,6 +1,8 @@
 package com.group.commute_app.member.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.group.commute_app.team.domain.Team;
 
@@ -10,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Member {
@@ -27,6 +30,8 @@ public class Member {
 	private LocalDate birthday;
 	@ManyToOne
 	private Team team;
+	@OneToMany(mappedBy = "member")
+	private List<Attendance> attendances = new ArrayList<>();
 
 	protected Member() {
 	}
@@ -37,6 +42,10 @@ public class Member {
 		this.workStartDate = workStartDate;
 		this.birthday = birthday;
 		this.team = team;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
