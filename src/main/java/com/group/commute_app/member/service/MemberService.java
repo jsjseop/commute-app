@@ -13,6 +13,8 @@ import com.group.commute_app.member.dto.request.MemberCheckInRequest;
 import com.group.commute_app.member.dto.request.MemberCheckOutRequest;
 import com.group.commute_app.member.dto.request.MemberSaveRequest;
 import com.group.commute_app.member.dto.response.MemberResponse;
+import com.group.commute_app.member.dto.response.MonthlyWorkingMinutesResponse;
+import com.group.commute_app.member.dto.response.WorkingMinutesDetail;
 import com.group.commute_app.member.repository.AttendanceRepository;
 import com.group.commute_app.member.repository.MemberRepository;
 import com.group.commute_app.team.domain.Team;
@@ -85,5 +87,17 @@ public class MemberService {
 			.orElseThrow(IllegalArgumentException::new);
 
 		attendance.checkOut(LocalDateTime.now());
+	}
+
+	public MonthlyWorkingMinutesResponse getMonthlyWorkingMinutes(Long id, String yearMonth) {
+		Member member = memberRepository.findById(id)
+			.orElseThrow(IllegalArgumentException::new);
+
+		int year = Integer.parseInt(yearMonth.substring(0, 4));
+		int month = Integer.parseInt(yearMonth.substring(5, 7));
+		List<WorkingMinutesDetail> monthlyWorkingMinutes = attendanceRepository.findMonthlyWorkingMinutes(
+			member.getId(), year, month);
+
+		return new MonthlyWorkingMinutesResponse(monthlyWorkingMinutes);
 	}
 }
